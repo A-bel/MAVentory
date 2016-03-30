@@ -8,7 +8,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.mavericks.abel.maventry.LoginActivity">
+    tools:context="com.mavericks.abel.maventry.LoginActivity"
+    android:background="#17c39b">
 
     <!-- Login progress -->
     <ProgressBar
@@ -28,7 +29,8 @@
             android:id="@+id/email_login_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="1">
 
             <AutoCompleteTextView
                 android:id="@+id/email"
@@ -37,28 +39,47 @@
                 android:hint="@string/prompt_email"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:textColorHint="#a8a1a1"
+                android:background="#ffffff"
+                android:maxHeight="@dimen/abc_action_bar_progress_bar_size"
+                android:layout_marginTop="150dp"
+                android:layout_weight="0"
+                android:minHeight="@dimen/abc_action_bar_progress_bar_size"
+                android:nestedScrollingEnabled="false"
+                android:paddingLeft="20dp" />
 
             <EditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/prompt_password"
+                android:hint="Password"
                 android:imeActionId="@+id/login"
                 android:imeActionLabel="@string/action_sign_in_short"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:background="#ffffff"
+                android:textColor="#a39f9f"
+                android:textColorHint="#a39f9f"
+                android:layout_marginTop="20dp"
+                android:minHeight="@dimen/abc_action_bar_progress_bar_size"
+                android:paddingLeft="20dp" />
 
             <Button
                 android:id="@+id/email_sign_in_button"
                 style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
+                android:layout_width="221dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="40dp"
                 android:text="@string/action_sign_in"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColorHint="#a39f9f"
+                android:background="#ffffff"
+                android:textColor="#a39f9f"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="0dp" />
 
         </LinearLayout>
     </ScrollView>
