@@ -47,7 +47,8 @@
                 android:layout_weight="0"
                 android:minHeight="@dimen/abc_action_bar_progress_bar_size"
                 android:nestedScrollingEnabled="false"
-                android:paddingLeft="20dp" />
+                android:paddingLeft="20dp"
+                android:textColor="#fb0a0a" />
 
             <EditText
                 android:id="@+id/password"
@@ -61,7 +62,7 @@
                 android:maxLines="1"
                 android:singleLine="true"
                 android:background="#ffffff"
-                android:textColor="#a39f9f"
+                android:textColor="#fb0a0a"
                 android:textColorHint="#a39f9f"
                 android:layout_marginTop="20dp"
                 android:minHeight="@dimen/abc_action_bar_progress_bar_size"

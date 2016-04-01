@@ -3,6 +3,9 @@ package com.mavericks.abel.maventry;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -19,6 +22,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,8 +32,16 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
@@ -39,19 +51,32 @@ import static android.Manifest.permission.READ_CONTACTS;
  */
 public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
+    // Progress Dialog
+    private ProgressDialog pDialog;
+
+    // Creating JSON Parser object
+    JSONParser jParser = new JSONParser();
+
+    ArrayList<HashMap<String, String>> productsList;
+
+    // url to get all products list
+    private static String check_login = "http://mavericks.ga/php/userlogin.php"; //"http://192.168.0.18/android_connect/get_all_products.php"; //"http://ebhojan.ga/get_all_products.php"; //"http://warferns.5gbfree.com/android_connect/get_all_products.php";
+
+    // JSON Node names
+    //private static final String TAG_SUCCESS = "success";
+
+    private static final String TAG_EMAIL = "email";
+    private static final String TAG_PASSWORD = "password";
+
+
+    // JSON Node names
+    private static final String TAG_SUCCESS = "success";
+
     /**
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
-
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "abel@g.com:jacob", "bar@example.com:world"
-    };
-    /**
+/**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
@@ -145,10 +170,6 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
-
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -186,8 +207,14 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            ConnectionDetector cd = new ConnectionDetector(getApplicationContext());
+            if (cd.isConnectingToInternet()) // true or false
+            {
+                new UserLoginTask().execute();
+            } else {
+                Toast.makeText(getApplicationContext(), "NO INTERNET :|",
+                        Toast.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -295,57 +322,83 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    public class UserLoginTask extends AsyncTask<String, String, String> {
 
-        private final String mEmail;
-        private final String mPassword;
+        /**
+         * Before starting background thread Show Progress Dialog
+         */
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(LoginActivity.this);
+            pDialog.setMessage("Signing In!!!");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.show();
 
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
         }
 
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
+        boolean flag = false;
+        String email = mEmailView.getText().toString();
+        String password = mPasswordView.getText().toString();
 
+
+        /**
+         * Creating product / Updating existing product
+         */
+        protected String doInBackground(String... args) {
+            // Building Parameters
+            List<NameValuePair> Params = new ArrayList<NameValuePair>();
+            Params.add(new BasicNameValuePair(TAG_EMAIL, email));
+            Params.add(new BasicNameValuePair(TAG_PASSWORD, password));
+            // getting JSON string from URL
+            JSONObject Json = jParser.makeHttpRequest(check_login, "GET", Params);
+
+            // Check your log cat for JSON reponse
+           // Log.d("login ", Json.toString());
             try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
+                // Checking for SUCCESS TAG
+                int success = Json.getInt(TAG_SUCCESS);
+                Log.d("ajsd", Integer.toString(success));
+                if (success == 1) {
+                    // successfully created product
+                    Intent i = new Intent(getApplicationContext(), AllProductsActivity.class);
+                    startActivity(i);
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
+                    // closing this screen
+                    finish();
+                } else {
+                    Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(i);
+                    finish();
                 }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (NullPointerException npe) {
+                pDialog.dismiss();
+                Toast.makeText(getApplicationContext(), "NO INTERNET :|",
+                        Toast.LENGTH_LONG).show();
             }
 
-            // TODO: register the new account here.
-            return true;
+            return null;
         }
 
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
+        /**
+         * After completing background task Dismiss the progress dialog
+         **/
+        protected void onPostExecute(String file_url) {
             showProgress(false);
-
-            if (success) {
-                finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
+            // dismiss the dialog once done
+            pDialog.dismiss();
         }
 
-        @Override
         protected void onCancelled() {
             mAuthTask = null;
             showProgress(false);
         }
+
+
     }
 }
 
