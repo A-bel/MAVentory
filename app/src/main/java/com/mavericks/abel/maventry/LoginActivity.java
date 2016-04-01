@@ -181,12 +181,19 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         boolean cancel = false;
         View focusView = null;
 
+        //If password empty
+        if (TextUtils.isEmpty(password)) {
+            mPasswordView.setError(getString(R.string.error_field_required));
+            focusView = mPasswordView;
+            cancel = true;
+        }
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        else if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
         }
+
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
@@ -331,7 +338,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         protected void onPreExecute() {
             super.onPreExecute();
             pDialog = new ProgressDialog(LoginActivity.this);
-            pDialog.setMessage("Signing In!!!");
+            pDialog.setMessage("Signing In...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(true);
             pDialog.show();
@@ -359,10 +366,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             try {
                 // Checking for SUCCESS TAG
                 int success = Json.getInt(TAG_SUCCESS);
-                Log.d("ajsd", Integer.toString(success));
+                Log.d("Success", Integer.toString(success));
                 if (success == 1) {
                     // successfully created product
-                    Intent i = new Intent(getApplicationContext(), AllProductsActivity.class);
+                    Intent i = new Intent(getApplicationContext(), MainScreenActivity.class);
                     startActivity(i);
 
                     // closing this screen

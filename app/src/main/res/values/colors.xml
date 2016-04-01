@@ -6,4 +6,5 @@
     <color name="accent_material_dark_1">#b71c1c</color>
     <color name="accent_material_dark_2">#b71c1c</color>
     <color name="primary_material_dark">#f44336</color>
+    <color name="yo">#f44336</color>
 </resources>

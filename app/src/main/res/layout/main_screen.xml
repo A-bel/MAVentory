@@ -4,7 +4,8 @@
     android:layout_height="fill_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:background="#aa903535">
 
     <!--  Sample Dashboard screen with Two buttons -->
     <TextView
@@ -21,18 +22,35 @@
 
     <Button
         android:id="@+id/btnViewProducts"
-        android:layout_width="wrap_content"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:text="View Products"
         android:layout_marginTop="20dp"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center"
+        android:background="@android:color/darker_gray"
+        android:backgroundTint="@color/dim_foreground_disabled_material_light" />
 
     <Button
         android:id="@+id/btnCreateProduct"
-        android:layout_width="wrap_content"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:text="Add New Products"
         android:layout_marginTop="20dp"
-        android:layout_gravity="center_horizontal" />
+        android:background="@android:color/darker_gray"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/dim_foreground_disabled_material_light" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:id="@+id/btnLogout"
+        android:layout_gravity="center"
+        android:clickable="false"
+        android:enabled="true"
+        android:focusable="false"
+        android:layout_marginTop="150dp"
+        android:backgroundTint="@color/dim_foreground_disabled_material_light" />
 
 </LinearLayout>

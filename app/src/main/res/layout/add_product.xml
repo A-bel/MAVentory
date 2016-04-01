@@ -23,7 +23,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#aa903535">
 
 
     <!-- Name Label -->
@@ -110,6 +111,7 @@
         android:layout_width="162dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Create Item" />
+        android:text="Create Item"
+        android:backgroundTint="@color/dim_foreground_disabled_material_light" />
 
 </LinearLayout><!--/android.support.design.widget.CoordinatorLayout-->

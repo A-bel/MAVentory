@@ -12,6 +12,7 @@ public class MainScreenActivity extends Activity {
 
     Button btnViewProducts;
     Button btnNewProduct;
+    Button btnLogout;
     TextView tv;
 
     @Override
@@ -19,23 +20,15 @@ public class MainScreenActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_screen);
 
-		/*
-        //On create, launch AllProductsActivity
-		Intent i = new Intent(getApplicationContext(), AllProductsActivity.class);
-		startActivity(i);
-		*/
-        //On create, launch AllProductsActivity
-        Intent i = new Intent(getApplicationContext(), LoginActivity.class);
-        startActivity(i);
-
         //textview
         tv = (TextView) findViewById(R.id.textView1);
         Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Nero.otf");
         tv.setTypeface(tf);
 
         // Buttons
-        btnViewProducts = (Button) findViewById(R.id.btnViewProducts);//asdn
+        btnViewProducts = (Button) findViewById(R.id.btnViewProducts);
         btnNewProduct = (Button) findViewById(R.id.btnCreateProduct);
+        btnLogout = (Button) findViewById(R.id.btnLogout);
 
         // view products click event
         btnViewProducts.setOnClickListener(new View.OnClickListener() {
@@ -49,7 +42,7 @@ public class MainScreenActivity extends Activity {
             }
         });
 
-        // view products click event
+        // new products click event
         btnNewProduct.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -58,6 +51,19 @@ public class MainScreenActivity extends Activity {
                 Intent i = new Intent(getApplicationContext(), NewProductActivity.class);
                 startActivity(i);
 
+
+            }
+        });
+
+        // Logout click event
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                // Launching Login
+                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(i);
+                finish();
 
             }
         });

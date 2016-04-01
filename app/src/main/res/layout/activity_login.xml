@@ -48,7 +48,8 @@
                 android:minHeight="@dimen/abc_action_bar_progress_bar_size"
                 android:nestedScrollingEnabled="false"
                 android:paddingLeft="20dp"
-                android:textColor="#fb0a0a" />
+                android:textColor="#000000"
+                android:phoneNumber="false" />
 
             <EditText
                 android:id="@+id/password"
@@ -62,7 +63,7 @@
                 android:maxLines="1"
                 android:singleLine="true"
                 android:background="#ffffff"
-                android:textColor="#fb0a0a"
+                android:textColor="@color/material_deep_teal_500"
                 android:textColorHint="#a39f9f"
                 android:layout_marginTop="20dp"
                 android:minHeight="@dimen/abc_action_bar_progress_bar_size"
@@ -74,13 +75,14 @@
                 android:layout_width="221dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:text="@string/action_sign_in"
+                android:text="Sign In"
                 android:textStyle="bold"
                 android:textColorHint="#a39f9f"
                 android:background="#ffffff"
-                android:textColor="#a39f9f"
+                android:textColor="#ffffff"
                 android:layout_marginLeft="60dp"
-                android:layout_marginRight="0dp" />
+                android:layout_marginRight="0dp"
+                android:backgroundTint="@color/material_deep_teal_500" />
 
         </LinearLayout>
     </ScrollView>

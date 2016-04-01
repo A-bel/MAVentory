@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#aa903535">
 
     <!-- Name Label -->
     <TextView
@@ -92,14 +93,16 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Delete"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:backgroundTint="@color/dim_foreground_disabled_material_light" />
 
         <Button
             android:id="@+id/btnSave"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Save Changes"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:backgroundTint="@color/dim_foreground_disabled_material_light" />
 
         <!-- Button Create Product -->
     </LinearLayout>

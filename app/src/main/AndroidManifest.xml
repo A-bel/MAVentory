@@ -18,9 +18,10 @@
         android:label="@string/app_name"
         android:theme="@style/MAVentory">
         <activity
-            android:name=".MainScreenActivity"
+            android:name=".LoginActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,9 +46,12 @@
             android:name=".EditProductActivity"
             android:label="Edit Item"
             android:screenOrientation="portrait"></activity>
+
+        <!--Main screen Activity  -->
         <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login"></activity>
+            android:name=".MainScreenActivity"
+            android:label="Main screen"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
