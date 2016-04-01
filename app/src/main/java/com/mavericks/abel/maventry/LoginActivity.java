@@ -76,7 +76,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
-/**
+    /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
@@ -355,7 +355,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             JSONObject Json = jParser.makeHttpRequest(check_login, "GET", Params);
 
             // Check your log cat for JSON reponse
-           // Log.d("login ", Json.toString());
+            // Log.d("login ", Json.toString());
             try {
                 // Checking for SUCCESS TAG
                 int success = Json.getInt(TAG_SUCCESS);
@@ -368,9 +368,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                     // closing this screen
                     finish();
                 } else {
-                    Intent i = new Intent(getApplicationContext(), LoginActivity.class);
-                    startActivity(i);
-                    finish();
+                    flag = true;
                 }
 
             } catch (JSONException e) {
@@ -389,6 +387,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
          **/
         protected void onPostExecute(String file_url) {
             showProgress(false);
+            if (flag) {
+                Toast.makeText(getApplicationContext(), "Invalid Login",
+                        Toast.LENGTH_LONG).show();
+            }
             // dismiss the dialog once done
             pDialog.dismiss();
         }
