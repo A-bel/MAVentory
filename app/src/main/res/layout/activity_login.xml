@@ -69,6 +69,13 @@
                 android:minHeight="@dimen/abc_action_bar_progress_bar_size"
                 android:paddingLeft="20dp" />
 
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0"></LinearLayout>
+
             <Button
                 android:id="@+id/email_sign_in_button"
                 style="?android:textAppearanceSmall"
@@ -80,10 +87,51 @@
                 android:textColorHint="#a39f9f"
                 android:background="#ffffff"
                 android:textColor="#ffffff"
-                android:layout_marginLeft="60dp"
+                android:layout_marginLeft="0dp"
                 android:layout_marginRight="0dp"
+                android:layout_gravity="center_horizontal"
                 android:backgroundTint="@color/material_deep_teal_500" />
 
+            <Button
+
+                style="?android:textAppearanceSmall"
+                android:layout_width="221dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:text="Sign In with Finger Print"
+                android:textStyle="bold"
+                android:textColorHint="#a39f9f"
+                android:background="#ffffff"
+                android:textColor="#ffffff"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:backgroundTint="@color/material_deep_teal_500"
+                android:id="@+id/purchase_button"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0" />
+            <TextView
+                android:id="@+id/confirmation_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textAppearance="@android:style/TextAppearance.Material.Body2"
+                android:textColor="?android:attr/colorAccent"
+                android:text="@string/purchase_done"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/encrypted_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textAppearance="@android:style/TextAppearance.Material.Body2"
+                android:textColor="?android:attr/colorAccent"
+                android:text="@string/purchase_done"
+                android:visibility="gone"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
